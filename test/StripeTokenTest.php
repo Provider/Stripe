@@ -10,8 +10,6 @@ final class StripeTokenTest extends \PHPUnit_Framework_TestCase
 {
     public function testImport()
     {
-        var_dump($_SERVER['STRIPE_API_KEY']);
-
         $porter = (new Porter)->registerProvider((new StripeProvider)->setApiKey($_SERVER['STRIPE_API_KEY']));
 
         $results = $porter->import(new ImportSpecification(new StripeToken(new TestCard)));

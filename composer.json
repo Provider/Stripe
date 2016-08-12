@@ -1,5 +1,5 @@
 {
-    "name": "porterovider/stripe",
+    "name": "provider/stripe",
     "description": "Stripe data provider for Porter.",
     "authors": [
         {

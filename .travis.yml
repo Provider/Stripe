@@ -10,6 +10,11 @@ php:
   - 5.6
   - 7.0
 
+addons:
+  apt:
+    packages:
+      - libssl1.0.0
+
 install:
   - alias composer=composer\ -n && composer selfupdate
   - composer validate
@@ -24,9 +29,9 @@ after_success:
 
 env:
   - secure: "\
-    Jbh5bI1ZjWfg8mZCb7ikabYO5C/fmk+rqIH4j/UDzxstQApMWxpn4KjkRhidjdcJ1dYwRkOMTJ+D4kq0FfraSMxr1DswAjT2PJ9ATep78ZjySMmAxo\
-    zg1/Q7/vf6EwHikinAUljrXKTHtZ/2bmw2X0Dvni4wY4G3uWg+0MlsMGZbicMsuZkVrowC16EG+YYkuZewSlxlxw6YUsNzqNATBmoy00zwPgwPU9jp\
-    kK5Ecugs/5f3yrox+nl0ltdXd3o/aBp6+n9+b9CKpl/SaJu/1Gs1/+0ndgtsKHQUh2WshBojYm0OUqS96KHoQL2I9C0tn3wiB8YOAwzcriUQazhStm\
-    zH3sNQOMhBWg/rPRZaKSRsGVMUPZeH4GbL98xiWp6LDhsiROnOR+yb6WGb/0sCaJDwVDWbTOvMjLzS285nsolV+D3hz8Wb6EpICCYQPo7wt61Z+nEB\
-    qsGmjmIPfzXU+WSTbFmWfSzNucFsp/9Quir6lwpbo/baSzPJCsTl88IPQrSv21NSG+89I7cebzlJ62uUAEyx9eHScEkdUPAKvE30P95OizTp8X3HBT\
-    SZDT0qZR8W1exNEUbQzkYFjUDe4X0QqZ536x9RliO2xqxTnnS7XjMopkj1rKx9raWyk6ij2TXyiawLTIw302kx4kv7b1fHs0HrS2rAzslR6UcBmog="
+    kLgCeBZwCeOXsCX52Iq1NTzplcJLyXTjmB5F9jvQPhPimMgJLhzrZ4ToyWVqOusTmuXhsVXHIPbCvZ82l5UDB9P3GshcnjFVO2HtR5R1O4P+2IkIeN\
+    mlQi9bhUUpqhgvVta81PLY/rpDvKG0NO5YNTLb2DQOo7HmQESpUxgWaNJZxnRYGOIZ7F9O/xAsYpaJD/izIxUsy5sFi5/naEH4eJYfa58fCwygYtAY\
+    IM5U5+LBKl5WCG2Wr8cUeY/lmLElGxfQXzcUKta9LRsehuZ4OymUlP1Cqx56rBN58oqlmXCDmTxx626SoC6+8t5xPByKoQ1ONWlJ/ZgJyAajOsIeLz\
+    Sxvcetw8u1l2HW2ABz7AgGNYY77fo2k58558GOsuNTf5n7zio7kqT1ZBPe/N/26RVcqtWud3lXNBwrKBeyniW5xYC9ma/E5Jkf4jWWuuKAGT84dySA\
+    lwSMvDY4rpjgDrF3Q3uFk9f8/HiVqlZXVXBzORcP22lQI5nshuQo140gK7kzupIcrzjQQE9OSjmg7fS540XD+auUJJnPbMdsqZ/9qUIFQ6Q1ziCQHh\
+    JTud0QjQmky2Vkfb3U5Hr2y3wPvjSi/Ttx7BNREDnSs/XqMe8W2PX8wj02dXE+IRjdweMbHH2+XJEpSscLhuVMCVX5Wpt7VHWT031FMhyGAy7ge+U="
