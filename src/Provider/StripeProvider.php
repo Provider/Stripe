@@ -3,7 +3,8 @@ namespace ScriptFUSION\Porter\Provider\Stripe\Provider;
 
 use ScriptFUSION\Porter\Net\Http\HttpConnector;
 use ScriptFUSION\Porter\Provider\AbstractProvider;
-use ScriptFUSION\Porter\Provider\Resource\Resource;
+use ScriptFUSION\Porter\Provider\Resource\ProviderResource;
+use ScriptFUSION\Porter\Provider\Stripe\Provider\Resource\StripeResource;
 
 final class StripeProvider extends AbstractProvider
 {
@@ -20,7 +21,7 @@ final class StripeProvider extends AbstractProvider
         $this->options = new StripeOptions;
     }
 
-    public function fetch(Resource $resource)
+    public function fetch(ProviderResource $resource)
     {
         if (!$resource instanceof StripeResource) {
             throw new IncompatibleResourceException('Resource must implement StripeResource.');

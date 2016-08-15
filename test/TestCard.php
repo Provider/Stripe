@@ -3,7 +3,7 @@ namespace ScriptFUSIONTest\Porter\Provider\Stripe;
 
 use ScriptFUSION\Porter\Provider\Stripe\Card;
 
-class TestCard extends Card
+final class TestCard extends Card
 {
     public function __construct()
     {

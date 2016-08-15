@@ -1,5 +1,5 @@
 <?php
-namespace ScriptFUSION\Porter\Provider\Stripe\Provider;
+namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 use ScriptFUSION\Porter\Net\Http\HttpOptions;
 
