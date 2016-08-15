@@ -3,7 +3,7 @@ namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 use ScriptFUSION\Porter\Provider\Stripe\Card;
 
-class CreateStripeToken extends AbstractStripeResource
+class CreateToken extends AbstractStripeResource
 {
     private $card;
 
