@@ -3,7 +3,7 @@ namespace ScriptFUSION\Porter\Provider\Stripe;
 
 use ScriptFUSION\Porter\Type\StringType;
 
-class Card
+final class Card
 {
     /** @var string */
     private $number;

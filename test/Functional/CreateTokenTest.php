@@ -5,13 +5,13 @@ use ScriptFUSION\Porter\Provider\Stripe\Provider\Resource\CreateToken;
 use ScriptFUSION\Porter\Provider\Stripe\Token;
 use ScriptFUSION\Porter\Specification\ImportSpecification;
 use ScriptFUSIONTest\Porter\Provider\Stripe\PorterTest;
-use ScriptFUSIONTest\Porter\Provider\Stripe\TestCard;
+use ScriptFUSIONTest\Porter\Provider\Stripe\TestObjectFactory;
 
 final class CreateTokenTest extends PorterTest
 {
     public function testCreateToken()
     {
-        $results = $this->porter->import(new ImportSpecification(new CreateToken(new TestCard)));
+        $results = $this->porter->import(new ImportSpecification(new CreateToken(TestObjectFactory::createCard())));
 
         self::assertArrayHasKey('id', $result = $results->current());
         self::assertTrue(Token::isValidIdentifier($result['id']));
