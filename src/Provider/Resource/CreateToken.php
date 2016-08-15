@@ -17,7 +17,7 @@ class CreateToken extends AbstractStripeResource
         return 'tokens';
     }
 
-    protected function getPayload()
+    protected function serialize()
     {
         return $this->card->serialize();
     }

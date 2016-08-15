@@ -19,7 +19,7 @@ abstract class AbstractStripeResource extends AbstractResource implements Stripe
     /**
      * @return array
      */
-    abstract protected function getPayload();
+    abstract protected function serialize();
 
     public function getProviderClassName()
     {
@@ -37,7 +37,7 @@ abstract class AbstractStripeResource extends AbstractResource implements Stripe
             $this->getResourcePath(),
             $this->options
                 ->setMethod('POST')
-                ->setContent(http_build_query($this->getPayload()))
+                ->setContent(http_build_query($this->serialize()))
         );
 
         yield json_decode($data, true);

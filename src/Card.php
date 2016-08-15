@@ -1,6 +1,8 @@
 <?php
 namespace ScriptFUSION\Porter\Provider\Stripe;
 
+use ScriptFUSION\Porter\Type\StringType;
+
 class Card
 {
     /** @var string */
@@ -31,6 +33,11 @@ class Card
             'card[exp_month]' => $this->getExpiryMonth(),
             'card[exp_year]' => $this->getExpiryYear(),
         ];
+    }
+
+    public static function isValidIdentifier($id)
+    {
+        return StringType::startsWith($id, 'card_');
     }
 
     /**

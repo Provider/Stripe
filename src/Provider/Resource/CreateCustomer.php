@@ -2,15 +2,20 @@
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 use ScriptFUSION\Porter\Provider\Stripe\Card;
+use ScriptFUSION\Porter\Provider\Stripe\Token;
 
 class CreateCustomer extends AbstractStripeResource
 {
-    /** @var string|Card */
+    /** @var Token|Card */
     private $source;
 
     public function __construct($source)
     {
-        $this->source = $source instanceof Card ? $source : "$source";
+        if (!$source instanceof Token && !$source instanceof Card) {
+            throw new \InvalidArgumentException('$source must be instance of Token or Card.');
+        }
+
+        $this->source = $source;
     }
 
     protected function getResourcePath()
@@ -18,14 +23,14 @@ class CreateCustomer extends AbstractStripeResource
         return 'customers';
     }
 
-    protected function getPayload()
+    protected function serialize()
     {
         if ($this->source instanceof Card) {
             return $this->source->serialize();
         }
 
         return [
-            'source' => $this->source,
+            'source' => "$this->source",
         ];
     }
 }
