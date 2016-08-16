@@ -11,29 +11,23 @@ final class CreateChargeTest extends PorterTest
 {
     public function testChargeCard()
     {
-        $results = $this->porter->import(
+        self::assertValidCharge($this->porter->importOne(
             new ImportSpecification(new CreateCharge(TestObjectFactory::createCard(), 1337, 'GBP'))
-        );
-
-        self::assertValidCharge($results->current());
+        ));
     }
 
     public function testChargeToken()
     {
-        $results = $this->porter->import(
+        self::assertValidCharge($this->porter->importOne(
             new ImportSpecification(new CreateCharge(TestObjectFactory::createToken(), 1338, 'USD'))
-        );
-
-        self::assertValidCharge($results->current());
+        ));
     }
 
     public function testChargeCustomer()
     {
-        $results = $this->porter->import(
+        self::assertValidCharge($this->porter->importOne(
             new ImportSpecification(new CreateCharge(TestObjectFactory::createCustomer(), 1339, 'JPY'))
-        );
-
-        self::assertValidCharge($results->current());
+        ));
     }
 
     private static function assertValidCharge(array $charge)

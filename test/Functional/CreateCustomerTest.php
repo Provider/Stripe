@@ -11,16 +11,16 @@ final class CreateCustomerTest extends PorterTest
 {
     public function testCreateCustomerFromCard()
     {
-        $results = $this->porter->import(new ImportSpecification(new CreateCustomer(TestObjectFactory::createCard())));
-
-        self::assertValidCustomer($results->current());
+        self::assertValidCustomer($this->porter->importOne(
+            new ImportSpecification(new CreateCustomer(TestObjectFactory::createCard()))
+        ));
     }
 
     public function testCreateCustomerFromToken()
     {
-        $results = $this->porter->import(new ImportSpecification(new CreateCustomer(TestObjectFactory::createToken())));
-
-        self::assertValidCustomer($results->current());
+        self::assertValidCustomer($this->porter->importOne(
+            new ImportSpecification(new CreateCustomer(TestObjectFactory::createToken()))
+        ));
     }
 
     private static function assertValidCustomer(array $customer)

@@ -11,9 +11,9 @@ final class CreateTokenTest extends PorterTest
 {
     public function testCreateToken()
     {
-        $results = $this->porter->import(new ImportSpecification(new CreateToken(TestObjectFactory::createCard())));
+        $token = $this->porter->importOne(new ImportSpecification(new CreateToken(TestObjectFactory::createCard())));
 
-        self::assertArrayHasKey('id', $result = $results->current());
-        self::assertTrue(Token::isValidIdentifier($result['id']));
+        self::assertArrayHasKey('id', $token);
+        self::assertTrue(Token::isValidIdentifier($token['id']));
     }
 }

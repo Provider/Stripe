@@ -29,15 +29,14 @@ final class TestObjectFactory
     public static function createToken()
     {
         return new Token(
-            self::createPorter()->import(new ImportSpecification(new CreateToken(self::createCard())))->current()['id']
+            self::createPorter()->importOne(new ImportSpecification(new CreateToken(self::createCard())))['id']
         );
     }
 
     public static function createCustomer()
     {
         return new Customer(
-            self::createPorter()->import(new ImportSpecification(new CreateCustomer(self::createCard())))
-                ->current()['id']
+            self::createPorter()->importOne(new ImportSpecification(new CreateCustomer(self::createCard())))['id']
         );
     }
 }

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "387a2405a32f2babdc7cee8abf9baeac",
-    "content-hash": "de3eb6ee282424d459fbda10f2c46aa3",
+    "hash": "c4cd2c7876756fafd366cd3d0ee1a82d",
+    "content-hash": "5d06df90fc0deb928b7b117620000d45",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -209,16 +209,16 @@
         },
         {
             "name": "scriptfusion/porter",
-            "version": "0.7.0",
+            "version": "0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ScriptFUSION/Porter.git",
-                "reference": "beea4a4c858e50c4585f63e1a8848d16dbbcee16"
+                "reference": "ca1ba764b775f0f12fdb7a573ce8b5d883ac844c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ScriptFUSION/Porter/zipball/beea4a4c858e50c4585f63e1a8848d16dbbcee16",
-                "reference": "beea4a4c858e50c4585f63e1a8848d16dbbcee16",
+                "url": "https://api.github.com/repos/ScriptFUSION/Porter/zipball/ca1ba764b775f0f12fdb7a573ce8b5d883ac844c",
+                "reference": "ca1ba764b775f0f12fdb7a573ce8b5d883ac844c",
                 "shasum": ""
             },
             "require": {
@@ -248,7 +248,7 @@
                 }
             ],
             "description": "Data import abstraction library.",
-            "time": "2016-08-14 18:34:25"
+            "time": "2016-08-15 21:26:25"
         },
         {
             "name": "scriptfusion/retry",
