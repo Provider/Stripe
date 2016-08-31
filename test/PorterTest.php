@@ -10,6 +10,6 @@ abstract class PorterTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->porter = TestObjectFactory::createPorter();
+        $this->porter = FixtureFactory::createPorter();
     }
 }

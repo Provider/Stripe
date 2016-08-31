@@ -12,6 +12,11 @@ class CreateToken extends AbstractStripeResource
         $this->card = $card;
     }
 
+    protected function getHttpMethod()
+    {
+        return 'POST';
+    }
+
     protected function getResourcePath()
     {
         return 'tokens';

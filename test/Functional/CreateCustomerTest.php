@@ -4,22 +4,22 @@ namespace ScriptFUSIONTest\Porter\Provider\Stripe\Functional;
 use ScriptFUSION\Porter\Provider\Stripe\Customer;
 use ScriptFUSION\Porter\Provider\Stripe\Provider\Resource\CreateCustomer;
 use ScriptFUSION\Porter\Specification\ImportSpecification;
+use ScriptFUSIONTest\Porter\Provider\Stripe\FixtureFactory;
 use ScriptFUSIONTest\Porter\Provider\Stripe\PorterTest;
-use ScriptFUSIONTest\Porter\Provider\Stripe\TestObjectFactory;
 
 final class CreateCustomerTest extends PorterTest
 {
     public function testCreateCustomerFromCard()
     {
         self::assertValidCustomer($this->porter->importOne(
-            new ImportSpecification(new CreateCustomer(TestObjectFactory::createCard()))
+            new ImportSpecification(new CreateCustomer(FixtureFactory::createCard()))
         ));
     }
 
     public function testCreateCustomerFromToken()
     {
         self::assertValidCustomer($this->porter->importOne(
-            new ImportSpecification(new CreateCustomer(TestObjectFactory::createToken()))
+            new ImportSpecification(new CreateCustomer(FixtureFactory::createToken()))
         ));
     }
 

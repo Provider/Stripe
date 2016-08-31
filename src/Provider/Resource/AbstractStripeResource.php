@@ -17,6 +17,11 @@ abstract class AbstractStripeResource extends AbstractResource implements Stripe
     abstract protected function getResourcePath();
 
     /**
+     * @return string
+     */
+    abstract protected function getHttpMethod();
+
+    /**
      * @return array
      */
     abstract protected function serialize();
@@ -36,7 +41,7 @@ abstract class AbstractStripeResource extends AbstractResource implements Stripe
         $data = $connector->fetch(
             $this->getResourcePath(),
             $this->options
-                ->setMethod('POST')
+                ->setMethod($this->getHttpMethod())
                 ->setContent(http_build_query($this->serialize()))
         );
 

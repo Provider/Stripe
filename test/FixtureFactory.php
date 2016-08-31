@@ -11,7 +11,7 @@ use ScriptFUSION\Porter\Provider\Stripe\Token;
 use ScriptFUSION\Porter\Specification\ImportSpecification;
 use ScriptFUSION\StaticClass;
 
-final class TestObjectFactory
+final class FixtureFactory
 {
     use StaticClass;
 

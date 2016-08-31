@@ -18,6 +18,11 @@ class CreateCustomer extends AbstractStripeResource
         $this->source = $source;
     }
 
+    protected function getHttpMethod()
+    {
+        return 'POST';
+    }
+
     protected function getResourcePath()
     {
         return 'customers';

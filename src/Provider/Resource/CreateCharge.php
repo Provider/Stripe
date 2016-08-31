@@ -38,6 +38,11 @@ class CreateCharge extends AbstractStripeResource
         return 'charges';
     }
 
+    protected function getHttpMethod()
+    {
+        return 'POST';
+    }
+
     protected function serialize()
     {
         return [
