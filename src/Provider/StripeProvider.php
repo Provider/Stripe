@@ -3,14 +3,13 @@ namespace ScriptFUSION\Porter\Provider\Stripe\Provider;
 
 use ScriptFUSION\Porter\Net\Http\HttpConnector;
 use ScriptFUSION\Porter\Provider\AbstractProvider;
-use ScriptFUSION\Porter\Provider\Resource\ProviderResource;
-use ScriptFUSION\Porter\Provider\Stripe\Provider\Resource\StripeResource;
 
+/**
+ * @method StripeOptions getOptions
+ */
 final class StripeProvider extends AbstractProvider
 {
     const BASE_URL = 'https://api.stripe.com/v1/';
-
-    private $options;
 
     public function __construct(HttpConnector $connector = null)
     {
@@ -18,23 +17,12 @@ final class StripeProvider extends AbstractProvider
 
         $connector->setBaseUrl(self::BASE_URL);
 
-        $this->options = new StripeOptions;
-    }
-
-    public function fetch(ProviderResource $resource)
-    {
-        if (!$resource instanceof StripeResource) {
-            throw new IncompatibleResourceException('Resource must implement StripeResource.');
-        }
-
-        $resource->setOptions($this->options->toHttpOptions());
-
-        return parent::fetch($resource);
+        $this->setOptions(new StripeOptions);
     }
 
     public function setApiKey($apiKey)
     {
-        $this->options->setApiKey($apiKey);
+        $this->getOptions()->setApiKey($apiKey);
 
         return $this;
     }

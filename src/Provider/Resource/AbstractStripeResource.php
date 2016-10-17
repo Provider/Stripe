@@ -2,15 +2,13 @@
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 use ScriptFUSION\Porter\Connector\Connector;
-use ScriptFUSION\Porter\Net\Http\HttpOptions;
+use ScriptFUSION\Porter\Options\EncapsulatedOptions;
 use ScriptFUSION\Porter\Provider\Resource\AbstractResource;
+use ScriptFUSION\Porter\Provider\Stripe\Provider\StripeOptions;
 use ScriptFUSION\Porter\Provider\Stripe\Provider\StripeProvider;
 
-abstract class AbstractStripeResource extends AbstractResource implements StripeResource
+abstract class AbstractStripeResource extends AbstractResource
 {
-    /** @var HttpOptions */
-    protected $options;
-
     /**
      * @return string
      */
@@ -31,16 +29,16 @@ abstract class AbstractStripeResource extends AbstractResource implements Stripe
         return StripeProvider::class;
     }
 
-    public function setOptions(HttpOptions $options)
+    public function fetch(Connector $connector, EncapsulatedOptions $options = null)
     {
-        $this->options = $options;
-    }
+        if (!$options instanceof StripeOptions) {
+            throw new \InvalidArgumentException('Options must be an instance of StripeOptions.');
+        }
 
-    public function fetch(Connector $connector)
-    {
         $data = $connector->fetch(
             $this->getResourcePath(),
-            $this->options
+            $options
+                ->toHttpOptions()
                 ->setMethod($this->getHttpMethod())
                 ->setContent(http_build_query($this->serialize()))
         );

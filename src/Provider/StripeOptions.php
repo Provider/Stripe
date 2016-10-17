@@ -2,12 +2,10 @@
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider;
 
 use ScriptFUSION\Porter\Net\Http\HttpOptions;
+use ScriptFUSION\Porter\Options\EncapsulatedOptions;
 
-final class StripeOptions
+final class StripeOptions extends EncapsulatedOptions
 {
-    /** @var string */
-    private $apiKey;
-
     /**
      * @return HttpOptions
      */
@@ -21,7 +19,7 @@ final class StripeOptions
      */
     public function getApiKey()
     {
-        return $this->apiKey;
+        return $this->get('apiKey');
     }
 
     /**
@@ -29,6 +27,6 @@ final class StripeOptions
      */
     public function setApiKey($apiKey)
     {
-        $this->apiKey = "$apiKey";
+        $this->set('apiKey', "$apiKey");
     }
 }
