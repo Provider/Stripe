@@ -33,8 +33,12 @@ final class Customer
     /**
      * @param string $id
      */
-    public function setId($id)
+    private function setId($id)
     {
+        if (!self::isValidIdentifier($id)) {
+            throw new InvalidIdentifierException("Invalid customer identifier: \"$id\".");
+        }
+
         $this->id = "$id";
     }
 }

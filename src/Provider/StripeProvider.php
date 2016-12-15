@@ -14,7 +14,6 @@ final class StripeProvider extends AbstractProvider
     public function __construct(HttpConnector $connector = null)
     {
         parent::__construct($connector = $connector ?: new HttpConnector);
-
         $connector->setBaseUrl(self::BASE_URL);
 
         $this->setOptions(new StripeOptions);

@@ -30,6 +30,11 @@ final class CreateChargeTest extends PorterTest
         ));
     }
 
+    public function testNonCapturingCharge()
+    {
+        self::assertFalse(FixtureFactory::createUncapturedCharge()->isCaptured());
+    }
+
     private static function assertValidCharge(array $charge)
     {
         self::assertArrayHasKey('id', $charge);

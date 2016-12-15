@@ -16,6 +16,9 @@ class CreateCharge extends AbstractStripeResource
 
     private $currency;
 
+    /** @var bool */
+    private $capture = false;
+
     /**
      * @param Token|Card|Customer $sourceOrCustomer
      * @param int $amount
@@ -48,6 +51,7 @@ class CreateCharge extends AbstractStripeResource
         return [
             'amount' => $this->getAmount(),
             'currency' => $this->getCurrency(),
+            'capture' => var_export($this->getCapture(), true),
         ] + (
             ($customer = $this->getCustomer()) ? ['customer' => $customer->getId()] : []
         ) + (
@@ -125,5 +129,21 @@ class CreateCharge extends AbstractStripeResource
     public function setCurrency($currency)
     {
         $this->currency = "$currency";
+    }
+
+    /**
+     * @return bool
+     */
+    public function getCapture()
+    {
+        return $this->capture;
+    }
+
+    /**
+     * @param bool $capture
+     */
+    public function setCapture($capture)
+    {
+        $this->capture = (bool)$capture;
     }
 }
