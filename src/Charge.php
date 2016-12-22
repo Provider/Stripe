@@ -18,7 +18,7 @@ final class Charge
     /**
      * @var bool
      */
-    private $captured = false;
+    private $captured;
 
     public function __construct($id)
     {

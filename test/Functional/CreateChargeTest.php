@@ -39,5 +39,6 @@ final class CreateChargeTest extends PorterTest
     {
         self::assertArrayHasKey('id', $charge);
         self::assertTrue(Charge::isValidIdentifier($charge['id']));
+        self::assertTrue($charge['captured']);
     }
 }

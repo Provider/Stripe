@@ -17,7 +17,7 @@ class CreateCharge extends AbstractStripeResource
     private $currency;
 
     /** @var bool */
-    private $capture = false;
+    private $capture = true;
 
     /**
      * @param Token|Card|Customer $sourceOrCustomer
