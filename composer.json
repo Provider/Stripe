@@ -8,11 +8,11 @@
         }
     ],
     "require": {
-        "scriptfusion/porter": ">=1,<3"
+        "scriptfusion/porter": ">=1,<4"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4",
-        "mockery/mockery": "^0"
+        "phpunit/phpunit": "^4.8",
+        "mockery/mockery": "^0.9.4"
     },
     "autoload": {
         "psr-4": {
@@ -23,5 +23,8 @@
         "psr-4": {
             "ScriptFUSIONTest\\Porter\\Provider\\Stripe\\": "test"
         }
+    },
+    "scripts": {
+        "test": "phpunit -c test"
     }
 }

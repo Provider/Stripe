@@ -3,6 +3,11 @@ notifications:
 
 sudo: false
 
+addons:
+  apt:
+    packages:
+      - libssl1.0.0
+
 language: php
 
 php:
@@ -11,28 +16,34 @@ php:
   - 7.0
   - 7.1
 
-addons:
-  apt:
-    packages:
-      - libssl1.0.0
-
-install:
-  - alias composer=composer\ -n && composer selfupdate
-  - composer validate
-  - composer --prefer-source install
-
-script:
-  - bin/test --coverage-clover=build/logs/clover.xml
-
-after_success:
-  - composer --prefer-source require satooshi/php-coveralls
-  - vendor/bin/coveralls -v
-
 env:
-  - secure: "\
+  matrix:
+    -
+    - DEPENDENCIES=--prefer-lowest
+  global:
+    - secure: "\
     kLgCeBZwCeOXsCX52Iq1NTzplcJLyXTjmB5F9jvQPhPimMgJLhzrZ4ToyWVqOusTmuXhsVXHIPbCvZ82l5UDB9P3GshcnjFVO2HtR5R1O4P+2IkIeN\
     mlQi9bhUUpqhgvVta81PLY/rpDvKG0NO5YNTLb2DQOo7HmQESpUxgWaNJZxnRYGOIZ7F9O/xAsYpaJD/izIxUsy5sFi5/naEH4eJYfa58fCwygYtAY\
     IM5U5+LBKl5WCG2Wr8cUeY/lmLElGxfQXzcUKta9LRsehuZ4OymUlP1Cqx56rBN58oqlmXCDmTxx626SoC6+8t5xPByKoQ1ONWlJ/ZgJyAajOsIeLz\
     Sxvcetw8u1l2HW2ABz7AgGNYY77fo2k58558GOsuNTf5n7zio7kqT1ZBPe/N/26RVcqtWud3lXNBwrKBeyniW5xYC9ma/E5Jkf4jWWuuKAGT84dySA\
     lwSMvDY4rpjgDrF3Q3uFk9f8/HiVqlZXVXBzORcP22lQI5nshuQo140gK7kzupIcrzjQQE9OSjmg7fS540XD+auUJJnPbMdsqZ/9qUIFQ6Q1ziCQHh\
     JTud0QjQmky2Vkfb3U5Hr2y3wPvjSi/Ttx7BNREDnSs/XqMe8W2PX8wj02dXE+IRjdweMbHH2+XJEpSscLhuVMCVX5Wpt7VHWT031FMhyGAy7ge+U="
+
+matrix:
+  fast_finish: true
+
+cache:
+  directories:
+    - .composer/cache
+
+install:
+  - alias composer=composer\ -n && composer selfupdate
+  - composer validate
+  - composer update $DEPENDENCIES
+
+script:
+  - composer test -- --coverage-clover=build/logs/clover.xml
+
+after_success:
+  - composer require satooshi/php-coveralls
+  - vendor/bin/coveralls -v
