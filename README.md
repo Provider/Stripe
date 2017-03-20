@@ -7,7 +7,9 @@ Stripe
 [![Test coverage][Coverage image]][Coverage]
 [![Code style][Style image]][Style]
 
-A [Porter][Porter] provider for [Stripe](https://stripe.com), an online payment processor.
+A [Porter][Porter] provider for [Stripe][Stripe], an online payment processor. Unlike the [official library][Stripe library], this implementation supports multiple instances (using Porter's tagging feature) and testing because it does not [rely on global state][Stripe static issue].
+
+This implementation is incomplete, however the API design currently serves as one of the better reference implementations for those wishing to write similar providers for other services. [Pull requests][PRs] for missing Stripe API features are more than welcome.
 
 Requirements
 ------------
@@ -28,3 +30,8 @@ Requirements
   [Coverage image]: https://coveralls.io/repos/Provider/Stripe/badge.svg "Test coverage"
   [Style]: https://styleci.io/repos/65310636
   [Style image]: https://styleci.io/repos/65310636/shield?style=flat "Code style"
+
+  [PRs]: https://github.com/Provider/Stripe/pulls
+  [Stripe]: https://stripe.com
+  [Stripe library]: https://github.com/stripe/stripe-php
+  [Stripe static issue]: https://github.com/stripe/stripe-php/issues/124
