@@ -7,9 +7,25 @@ Stripe
 [![Test coverage][Coverage image]][Coverage]
 [![Code style][Style image]][Style]
 
-A [Porter][Porter] provider for [Stripe][Stripe], an online payment processor. Unlike the [official library][Stripe library], this implementation supports multiple instances (using Porter's tagging feature) and testing because it does not [rely on global state][Stripe static issue].
+A [Porter][Porter] provider for [Stripe][Stripe], an online payment processor. Unlike the [official library][Stripe library], this implementation supports multiple instances and testing with mocks because it [does not rely on global state][Stripe static issue].
 
-This implementation is incomplete, however the API design currently serves as one of the better reference implementations for those wishing to write similar providers for other services. [Pull requests][PRs] for missing Stripe API features are more than welcome.
+This implementation currently is incomplete, however the API design currently serves as one of the better reference implementations for those wishing to write similar providers for other services. [Pull requests][PRs] for missing Stripe API features are more than welcome.
+
+Usage
+-----
+
+Register an instance of `StipeProvider` with Porter.
+
+```php
+$porter->registerProvider((new StripeProvider)->setApiKey('MY_API_KEY'));
+```
+
+Once the provider is registered simply import any of its resources to invoke Stripe functionality. For example, to create a charge we could import `CreateCharge`.
+
+```php
+$card = new Card('4242424242424242', 12, 2020, '123');
+$response = $porter->importOne(new ImportSpecification(new CreateCharge($card)));
+```
 
 Requirements
 ------------
