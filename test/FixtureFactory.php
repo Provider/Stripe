@@ -28,6 +28,11 @@ final class FixtureFactory
         return new Card('4242424242424242', 12, date('Y') + 1, '123');
     }
 
+    public static function createInvalidCard()
+    {
+        return new Card('0', 12, date('Y') + 1, '123');
+    }
+
     public static function createToken()
     {
         return new Token(
