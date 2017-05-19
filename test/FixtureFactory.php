@@ -25,17 +25,17 @@ final class FixtureFactory
 
     public static function createCard()
     {
-        return new Card('4242424242424242', 12, date('Y') + 1, '123');
+        return static::createCardFromNumber('4242424242424242');
     }
 
     public static function createInvalidCard()
     {
-        return new Card('0', 12, date('Y') + 1, '123');
+        return static::createCardFromNumber('0');
     }
 
     public static function createNonChargeableCard()
     {
-        return new Card('4000000000000002', 12, date('Y') + 1, '123');
+        return static::createCardFromNumber('4000000000000002');
     }
 
     public static function createToken()
@@ -65,5 +65,10 @@ final class FixtureFactory
         $createCharge->setCapture(false);
 
         return Charge::fromArray(self::createPorter()->importOne(new ImportSpecification($createCharge)));
+    }
+
+    private static function createCardFromNumber($cardNumber, $cardCvc = '123')
+    {
+        return new Card($cardNumber, 12, date('Y') + 1, $cardCvc);
     }
 }
