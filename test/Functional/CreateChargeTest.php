@@ -16,6 +16,15 @@ final class CreateChargeTest extends PorterTest
         ));
     }
 
+    public function testChargeNonChargeableCardFails()
+    {
+        $this->setExpectedException(StripePaymentException::class);
+
+        $this->porter->importOne(
+            new ImportSpecification(new CreateCharge(FixtureFactory::createNonChargeableCard(), 1337, 'GBP'))
+        );
+    }
+
     public function testChargeToken()
     {
         self::assertValidCharge($this->porter->importOne(
