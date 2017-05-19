@@ -12,7 +12,7 @@ final class CreateTokenTest extends PorterTest
 {
     public function testCreateToken()
     {
-        $token = $this->porter->importOne(new ImportSpecification(new CreateToken(FixtureFactory::createCard())));
+        $token = $this->porter->importOne(new ImportSpecification(new CreateToken(FixtureFactory::createValidCard())));
 
         self::assertArrayHasKey('id', $token);
         self::assertTrue(Token::isValidIdentifier($token['id']));

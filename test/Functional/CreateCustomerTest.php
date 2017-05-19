@@ -12,7 +12,7 @@ final class CreateCustomerTest extends PorterTest
     public function testCreateCustomerFromCard()
     {
         self::assertValidCustomer($this->porter->importOne(
-            new ImportSpecification(new CreateCustomer(FixtureFactory::createCard()))
+            new ImportSpecification(new CreateCustomer(FixtureFactory::createValidCard()))
         ));
     }
 

@@ -12,7 +12,7 @@ final class CreateChargeTest extends PorterTest
     public function testChargeCard()
     {
         self::assertValidCharge($this->porter->importOne(
-            new ImportSpecification(new CreateCharge(FixtureFactory::createCard(), 1337, 'GBP'))
+            new ImportSpecification(new CreateCharge(FixtureFactory::createValidCard(), 1337, 'GBP'))
         ));
     }
 
