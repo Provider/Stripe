@@ -12,7 +12,7 @@ class StripePaymentException extends \RuntimeException
     private $type;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $param;
 
@@ -39,7 +39,7 @@ class StripePaymentException extends \RuntimeException
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getParam()
     {
