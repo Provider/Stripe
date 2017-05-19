@@ -51,8 +51,8 @@ abstract class AbstractStripeResource extends AbstractResource
                 throw new StripePaymentException(
                     $errorBody['message'],
                     $errorBody['type'],
-                    isset($errorBody['param']) ? $errorBody['param'] : null,
                     $errorBody['code'],
+                    isset($errorBody['param']) ? $errorBody['param'] : null,
                     $exception
                 );
             }

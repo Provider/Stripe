@@ -21,7 +21,7 @@ class StripePaymentException extends \RuntimeException
      */
     private $stripeCode;
 
-    public function __construct($message, $type, $param, $stripeCode, \Exception $previous = null)
+    public function __construct($message, $type, $stripeCode, $param = null, \Exception $previous = null)
     {
         parent::__construct($message, 402, $previous);
 
