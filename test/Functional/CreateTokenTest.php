@@ -27,4 +27,14 @@ final class CreateTokenTest extends PorterTest
 
         $this->porter->importOne(new ImportSpecification(new CreateToken(FixtureFactory::createInvalidCard())));
     }
+
+    /**
+     * Tests that when a token cannot be created because of an non chargeable card.
+     */
+    public function testCreateTokenFromNonChargeableCardFails()
+    {
+        $this->setExpectedException(StripePaymentException::class);
+
+        $this->porter->importOne(new ImportSpecification(new CreateToken(FixtureFactory::createNonChargeableCard())));
+    }
 }

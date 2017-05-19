@@ -33,6 +33,11 @@ final class FixtureFactory
         return new Card('0', 12, date('Y') + 1, '123');
     }
 
+    public static function createNonChargeableCard()
+    {
+        return new Card('4000000000000002', 12, date('Y') + 1, '123');
+    }
+
     public static function createToken()
     {
         return new Token(
