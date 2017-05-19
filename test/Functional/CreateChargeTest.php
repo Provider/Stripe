@@ -16,6 +16,9 @@ final class CreateChargeTest extends PorterTest
         ));
     }
 
+    /**
+     * Tests that when a charge is created for a non-chargeable card an unrecoverable exception is thrown.
+     */
     public function testChargeNonChargeableCardFails()
     {
         $this->setExpectedException(StripePaymentException::class);

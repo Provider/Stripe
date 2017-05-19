@@ -25,17 +25,17 @@ final class FixtureFactory
 
     public static function createCard()
     {
-        return static::createCardFromNumber('4242424242424242');
+        return self::createNotExpiredCard('4242424242424242');
     }
 
     public static function createInvalidCard()
     {
-        return static::createCardFromNumber('0');
+        return self::createNotExpiredCard('0');
     }
 
     public static function createNonChargeableCard()
     {
-        return static::createCardFromNumber('4000000000000002');
+        return self::createNotExpiredCard('4000000000000002');
     }
 
     public static function createToken()
@@ -67,8 +67,8 @@ final class FixtureFactory
         return Charge::fromArray(self::createPorter()->importOne(new ImportSpecification($createCharge)));
     }
 
-    private static function createCardFromNumber($cardNumber, $cardCvc = '123')
+    private static function createNotExpiredCard($cardNumber)
     {
-        return new Card($cardNumber, 12, date('Y') + 1, $cardCvc);
+        return new Card($cardNumber, 12, date('Y') + 1, '123');
     }
 }
