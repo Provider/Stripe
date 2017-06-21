@@ -3,6 +3,7 @@ namespace ScriptFUSIONTest\Porter\Provider\Stripe\Functional;
 
 use ScriptFUSION\Porter\Provider\Stripe\Charge;
 use ScriptFUSION\Porter\Provider\Stripe\Provider\Resource\CreateCharge;
+use ScriptFUSION\Porter\Provider\Stripe\Provider\Resource\StripePaymentException;
 use ScriptFUSION\Porter\Specification\ImportSpecification;
 use ScriptFUSIONTest\Porter\Provider\Stripe\FixtureFactory;
 use ScriptFUSIONTest\Porter\Provider\Stripe\PorterTest;
