@@ -12,7 +12,7 @@ class StripePaymentException extends \RuntimeException
     private $type;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $param;
 
@@ -21,7 +21,7 @@ class StripePaymentException extends \RuntimeException
      */
     private $stripeCode;
 
-    public function __construct($message, $type, $param, $stripeCode, \Exception $previous = null)
+    public function __construct($message, $type, $stripeCode, $param = null, \Exception $previous = null)
     {
         parent::__construct($message, 402, $previous);
 
@@ -39,7 +39,7 @@ class StripePaymentException extends \RuntimeException
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getParam()
     {

@@ -23,42 +23,52 @@ final class FixtureFactory
             ->registerProvider((new StripeProvider)->setApiKey($_SERVER['STRIPE_API_KEY']));
     }
 
-    public static function createCard()
+    public static function createValidCard()
     {
-        return new Card('4242424242424242', 12, date('Y') + 1, '123');
+        return self::createCard('4242424242424242');
     }
 
     public static function createInvalidCard()
     {
-        return new Card('0', 12, date('Y') + 1, '123');
+        return self::createCard('0');
+    }
+
+    public static function createNonChargeableCard()
+    {
+        return self::createCard('4000000000000002');
     }
 
     public static function createToken()
     {
         return new Token(
-            self::createPorter()->importOne(new ImportSpecification(new CreateToken(self::createCard())))['id']
+            self::createPorter()->importOne(new ImportSpecification(new CreateToken(self::createValidCard())))['id']
         );
     }
 
     public static function createCustomer()
     {
         return new Customer(
-            self::createPorter()->importOne(new ImportSpecification(new CreateCustomer(self::createCard())))['id']
+            self::createPorter()->importOne(new ImportSpecification(new CreateCustomer(self::createValidCard())))['id']
         );
     }
 
     public static function createCapturedCharge()
     {
         return Charge::fromArray(self::createPorter()->importOne(new ImportSpecification(
-            new CreateCharge(self::createCard(), 100, 'GBP')
+            new CreateCharge(self::createValidCard(), 100, 'GBP')
         )));
     }
 
     public static function createUncapturedCharge()
     {
-        $createCharge = new CreateCharge(self::createCard(), 100, 'GBP');
+        $createCharge = new CreateCharge(self::createValidCard(), 100, 'GBP');
         $createCharge->setCapture(false);
 
         return Charge::fromArray(self::createPorter()->importOne(new ImportSpecification($createCharge)));
+    }
+
+    private static function createCard($cardNumber)
+    {
+        return new Card($cardNumber, 12, date('Y') + 1, '123');
     }
 }
