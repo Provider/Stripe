@@ -2,27 +2,35 @@
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider;
 
 use ScriptFUSION\Porter\Net\Http\HttpConnector;
-use ScriptFUSION\Porter\Provider\AbstractProvider;
+use ScriptFUSION\Porter\Provider\Provider;
+use ScriptFUSION\Porter\Provider\Stripe\Connector\StripeConnector;
 
-/**
- * @method StripeOptions getOptions
- */
-final class StripeProvider extends AbstractProvider
+final class StripeProvider implements Provider
 {
     const BASE_URL = 'https://api.stripe.com/v1/';
 
-    public function __construct(HttpConnector $connector = null)
-    {
-        parent::__construct($connector = $connector ?: new HttpConnector);
-        $connector->setBaseUrl(self::BASE_URL);
+    private $connector;
 
-        $this->setOptions(new StripeOptions);
+    public function __construct(StripeConnector $connector)
+    {
+        $this->connector = $connector;
     }
 
-    public function setApiKey($apiKey)
+    /**
+     * @param string $url
+     *
+     * @return string
+     */
+    public static function buildApiUrl($url)
     {
-        $this->getOptions()->setApiKey($apiKey);
+        return self::BASE_URL . $url;
+    }
 
-        return $this;
+    /**
+     * @return HttpConnector
+     */
+    public function getConnector()
+    {
+        return $this->connector;
     }
 }

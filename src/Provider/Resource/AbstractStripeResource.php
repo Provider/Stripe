@@ -1,14 +1,14 @@
 <?php
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
-use ScriptFUSION\Porter\Connector\Connector;
+use ScriptFUSION\Porter\Connector\ImportConnector;
+use ScriptFUSION\Porter\Connector\RecoverableConnectorException;
 use ScriptFUSION\Porter\Net\Http\HttpServerException;
-use ScriptFUSION\Porter\Options\EncapsulatedOptions;
-use ScriptFUSION\Porter\Provider\Resource\AbstractResource;
-use ScriptFUSION\Porter\Provider\Stripe\Provider\StripeOptions;
+use ScriptFUSION\Porter\Provider\Resource\ProviderResource;
+use ScriptFUSION\Porter\Provider\Stripe\Connector\StripeConnector;
 use ScriptFUSION\Porter\Provider\Stripe\Provider\StripeProvider;
 
-abstract class AbstractStripeResource extends AbstractResource
+abstract class AbstractStripeResource implements ProviderResource
 {
     /**
      * @return string
@@ -30,24 +30,19 @@ abstract class AbstractStripeResource extends AbstractResource
         return StripeProvider::class;
     }
 
-    public function fetch(Connector $connector, EncapsulatedOptions $options = null)
+    public function fetch(ImportConnector $connector)
     {
-        if (!$options instanceof StripeOptions) {
-            throw new \InvalidArgumentException('Options must be an instance of StripeOptions.');
-        }
+        /** @var StripeConnector $wrappedConnector */
+        $wrappedConnector = $connector->getWrappedConnector();
+        $wrappedConnector->getOptions()
+            ->setMethod($this->getHttpMethod())
+            ->setContent(http_build_query($this->serialize()))
+        ;
 
-        try {
-            $data = $connector->fetch(
-                $this->getResourcePath(),
-                $options
-                    ->toHttpOptions()
-                    ->setMethod($this->getHttpMethod())
-                    ->setContent(http_build_query($this->serialize()))
-            );
-        } catch (HttpServerException $exception) {
+        $connector->setExceptionHandler(function (RecoverableConnectorException $exception) {
             // Treat 402 as unrecoverable error.
-            if ($exception->getCode() === 402) {
-                $errorBody = json_decode($exception->getBody(), true)['error'];
+            if ($exception instanceof HttpServerException && $exception->getResponse()->getStatusCode() === 402) {
+                $errorBody = json_decode($exception->getResponse()->getBody(), true)['error'];
                 throw new StripePaymentException(
                     $errorBody['message'],
                     $errorBody['type'],
@@ -56,9 +51,9 @@ abstract class AbstractStripeResource extends AbstractResource
                     $exception
                 );
             }
+        });
 
-            throw $exception;
-        }
+        $data = $connector->fetch(StripeProvider::buildApiUrl($this->getResourcePath()));
 
         yield json_decode($data, true);
     }

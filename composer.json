@@ -8,7 +8,10 @@
         }
     ],
     "require": {
-        "scriptfusion/porter": ">=3.1,<4"
+        "php": "^5.5|^7",
+        "scriptfusion/porter": "4.0.x-dev",
+        "connectors/http": "4.0.x-dev",
+        "eloquent/enumeration": "^5"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",

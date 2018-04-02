@@ -1,9 +1,11 @@
 <?php
 namespace ScriptFUSIONTest\Porter\Provider\Stripe;
 
+use Psr\Container\ContainerInterface;
 use ScriptFUSION\Porter\Porter;
 use ScriptFUSION\Porter\Provider\Stripe\Card;
 use ScriptFUSION\Porter\Provider\Stripe\Charge;
+use ScriptFUSION\Porter\Provider\Stripe\Connector\StripeConnector;
 use ScriptFUSION\Porter\Provider\Stripe\Customer;
 use ScriptFUSION\Porter\Provider\Stripe\Provider\Resource\CreateCharge;
 use ScriptFUSION\Porter\Provider\Stripe\Provider\Resource\CreateCustomer;
@@ -19,8 +21,18 @@ final class FixtureFactory
 
     public static function createPorter()
     {
-        return (new Porter)
-            ->registerProvider((new StripeProvider)->setApiKey($_SERVER['STRIPE_API_KEY']));
+        return new Porter(
+            \Mockery::mock(ContainerInterface::class)
+                ->shouldReceive('has')
+                    ->with(StripeProvider::class)
+                    ->andReturn(true)
+                ->shouldReceive('get')
+                    ->with(StripeProvider::class)
+                    ->andReturn(new StripeProvider(
+                        new StripeConnector($_SERVER['STRIPE_API_KEY'])
+                    ))
+                ->getMock()
+        );
     }
 
     public static function createValidCard()
