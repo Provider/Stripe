@@ -1,7 +1,7 @@
 <?php
 namespace ScriptFUSION\Porter\Provider\Stripe;
 
-use ScriptFUSION\Porter\Type\StringType;
+use ScriptFUSION\Type\StringType;
 
 final class Customer
 {

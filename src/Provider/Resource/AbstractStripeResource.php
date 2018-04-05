@@ -2,9 +2,8 @@
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 use ScriptFUSION\Porter\Connector\ImportConnector;
-use ScriptFUSION\Porter\Connector\RecoverableConnectorException;
-use ScriptFUSION\Porter\Net\Http\HttpServerException;
 use ScriptFUSION\Porter\Provider\Resource\ProviderResource;
+use ScriptFUSION\Porter\Provider\Stripe\Connector\FetchExceptionHandler\StripFetchExceptionHandler;
 use ScriptFUSION\Porter\Provider\Stripe\Connector\StripeConnector;
 use ScriptFUSION\Porter\Provider\Stripe\Provider\StripeProvider;
 
@@ -39,19 +38,7 @@ abstract class AbstractStripeResource implements ProviderResource
             ->setContent(http_build_query($this->serialize()))
         ;
 
-        $connector->setExceptionHandler(function (RecoverableConnectorException $exception) {
-            // Treat 402 as unrecoverable error.
-            if ($exception instanceof HttpServerException && $exception->getResponse()->getStatusCode() === 402) {
-                $errorBody = json_decode($exception->getResponse()->getBody(), true)['error'];
-                throw new StripePaymentException(
-                    $errorBody['message'],
-                    $errorBody['type'],
-                    $errorBody['code'],
-                    isset($errorBody['param']) ? $errorBody['param'] : null,
-                    $exception
-                );
-            }
-        });
+        $connector->setExceptionHandler(new StripFetchExceptionHandler);
 
         $data = $connector->fetch(StripeProvider::buildApiUrl($this->getResourcePath()));
 
