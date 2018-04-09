@@ -14,10 +14,10 @@ This implementation currently is incomplete, however the API design currently se
 Usage
 -----
 
-Register an instance of `StipeProvider` with Porter.
+Add the dependency to your Composer files `require` section.
 
-```php
-$porter->registerProvider((new StripeProvider)->setApiKey('MY_API_KEY'));
+```
+"provider/stripe": "^3"
 ```
 
 Once the provider is registered simply import any of its resources to invoke Stripe functionality. For example, to create a charge we could import `CreateCharge`.
