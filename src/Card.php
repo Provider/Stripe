@@ -7,19 +7,15 @@ use ScriptFUSION\Type\StringType;
 
 final class Card
 {
-    /** @var string */
     private $number;
 
-    /** @var string */
     private $cvc;
 
-    /** @var int */
     private $expiryMonth;
 
-    /** @var int */
     private $expiryYear;
 
-    public function __construct($number, $expiryMonth, $expiryYear, $cvc = null)
+    public function __construct(string $number, int $expiryMonth, int $expiryYear, string $cvc = '')
     {
         $this->setNumber($number);
         $this->setExpiryMonth($expiryMonth);

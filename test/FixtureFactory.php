@@ -81,8 +81,8 @@ final class FixtureFactory
         return Charge::fromArray(self::createPorter()->importOne(new ImportSpecification($createCharge)));
     }
 
-    private static function createCard($cardNumber): Card
+    private static function createCard(string $cardNumber): Card
     {
-        return new Card($cardNumber, 12, date('Y') + 1, '123');
+        return new Card($cardNumber, 12, date('Y') + 1);
     }
 }
