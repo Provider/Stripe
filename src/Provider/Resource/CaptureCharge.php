@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 use ScriptFUSION\Porter\Provider\Stripe\Charge;
@@ -7,25 +9,22 @@ class CaptureCharge extends AbstractStripeResource
 {
     private $charge;
 
-    /**
-     * @param Charge $charge
-     */
     public function __construct(Charge $charge)
     {
-        $this->charge = "$charge";
+        $this->charge = (string)$charge;
     }
 
-    protected function getResourcePath()
+    protected function getResourcePath(): string
     {
         return "charges/$this->charge/capture";
     }
 
-    protected function getHttpMethod()
+    protected function getHttpMethod(): string
     {
         return 'POST';
     }
 
-    protected function serialize()
+    protected function serialize(): array
     {
         return [];
     }

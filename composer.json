@@ -8,14 +8,16 @@
         }
     ],
     "require": {
-        "php": "^5.5|^7",
-        "scriptfusion/porter": "^4",
-        "connectors/http": "^2",
-        "eloquent/enumeration": "^5"
+        "php": "^7.1",
+        "ext-json": "*",
+        "connectors/http": "dev-5.0-rc",
+        "connectors/ssl": "dev-5.0-rc",
+        "eloquent/enumeration": "^5",
+        "scriptfusion/porter": "dev-master as 5"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.8",
-        "mockery/mockery": "^0.9.4"
+        "mockery/mockery": "^1",
+        "phpunit/phpunit": "^6.5"
     },
     "autoload": {
         "psr-4": {
@@ -29,5 +31,8 @@
     },
     "scripts": {
         "test": "phpunit -c test"
+    },
+    "config": {
+        "sort-packages": true
     }
 }

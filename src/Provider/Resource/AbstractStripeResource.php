@@ -1,47 +1,40 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 use ScriptFUSION\Porter\Connector\ImportConnector;
+use ScriptFUSION\Porter\Net\Http\HttpDataSource;
 use ScriptFUSION\Porter\Provider\Resource\ProviderResource;
+use ScriptFUSION\Porter\Provider\Resource\SingleRecordResource;
 use ScriptFUSION\Porter\Provider\Stripe\Connector\FetchExceptionHandler\StripFetchExceptionHandler;
-use ScriptFUSION\Porter\Provider\Stripe\Connector\StripeConnector;
 use ScriptFUSION\Porter\Provider\Stripe\Provider\StripeProvider;
 
-abstract class AbstractStripeResource implements ProviderResource
+abstract class AbstractStripeResource implements ProviderResource, SingleRecordResource
 {
-    /**
-     * @return string
-     */
-    abstract protected function getResourcePath();
+    abstract protected function getResourcePath(): string;
 
-    /**
-     * @return string
-     */
-    abstract protected function getHttpMethod();
+    abstract protected function getHttpMethod(): string;
 
-    /**
-     * @return array
-     */
-    abstract protected function serialize();
+    abstract protected function serialize(): array;
 
-    public function getProviderClassName()
+    public function getProviderClassName(): string
     {
         return StripeProvider::class;
     }
 
-    public function fetch(ImportConnector $connector)
+    public function fetch(ImportConnector $connector): \Iterator
     {
-        /** @var StripeConnector $wrappedConnector */
-        $wrappedConnector = $connector->getWrappedConnector();
-        $wrappedConnector->getOptions()
-            ->setMethod($this->getHttpMethod())
-            ->setContent(http_build_query($this->serialize()))
-        ;
+        $connector->setRecoverableExceptionHandler(new StripFetchExceptionHandler);
 
-        $connector->setExceptionHandler(new StripFetchExceptionHandler);
+        $data = $connector->fetch(
+            (new HttpDataSource(
+                StripeProvider::buildApiUrl($this->getResourcePath())
+            ))
+                ->setMethod($this->getHttpMethod())
+                ->setBody(http_build_query($this->serialize()))
+        );
 
-        $data = $connector->fetch(StripeProvider::buildApiUrl($this->getResourcePath()));
-
-        yield json_decode($data, true);
+        yield json_decode((string)$data, true);
     }
 }

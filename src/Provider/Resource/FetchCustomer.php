@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 class FetchCustomer extends AbstractStripeResource
@@ -10,17 +12,17 @@ class FetchCustomer extends AbstractStripeResource
         $this->customerId = (string)$customerId;
     }
 
-    protected function getResourcePath()
+    protected function getResourcePath(): string
     {
         return "customers/$this->customerId";
     }
 
-    protected function getHttpMethod()
+    protected function getHttpMethod(): string
     {
         return 'GET';
     }
 
-    protected function serialize()
+    protected function serialize(): array
     {
         return [];
     }

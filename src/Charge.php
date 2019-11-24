@@ -1,13 +1,12 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSION\Porter\Provider\Stripe;
 
 use ScriptFUSION\Type\StringType;
 
 final class Charge
 {
-    /**
-     * @var string
-     */
     private $id;
 
     /**
@@ -20,22 +19,17 @@ final class Charge
      */
     private $captured;
 
-    public function __construct($id)
+    public function __construct(string $id)
     {
         $this->setId($id);
     }
 
     public function __toString()
     {
-        return "$this->id";
+        return $this->id;
     }
 
-    /**
-     * @param array $chargeProperties
-     *
-     * @return Charge
-     */
-    public static function fromArray(array $chargeProperties)
+    public static function fromArray(array $chargeProperties): Charge
     {
         $charge = new self($chargeProperties['id']);
         $charge->setAmount($chargeProperties['amount']);
@@ -44,60 +38,42 @@ final class Charge
         return $charge;
     }
 
-    public static function isValidIdentifier($id)
+    public static function isValidIdentifier(string $id): bool
     {
         return StringType::startsWith($id, 'ch_');
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     */
-    private function setId($id)
+    private function setId(string $id): void
     {
         if (!self::isValidIdentifier($id)) {
             throw new InvalidIdentifierException("Invalid charge identifier: \"$id\".");
         }
 
-        $this->id = "$id";
+        $this->id = $id;
     }
 
-    /**
-     * @return int
-     */
-    public function getAmount()
+    public function getAmount(): int
     {
         return $this->amount;
     }
 
-    /**
-     * @param int $amount
-     */
-    private function setAmount($amount)
+    private function setAmount(int $amount): void
     {
-        $this->amount = $amount|0;
+        $this->amount = $amount;
     }
 
-    /**
-     * @return bool
-     */
-    public function isCaptured()
+    public function isCaptured(): bool
     {
         return $this->captured;
     }
 
-    /**
-     * @param bool $captured
-     */
-    private function setCaptured($captured)
+    private function setCaptured(bool $captured): void
     {
-        $this->captured = (bool)$captured;
+        $this->captured = $captured;
     }
 }

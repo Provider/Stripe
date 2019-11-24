@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSIONTest\Porter\Provider\Stripe\Functional;
 
 use ScriptFUSION\Porter\Provider\Stripe\Card;
@@ -10,7 +12,7 @@ use ScriptFUSIONTest\Porter\Provider\Stripe\PorterTest;
 
 final class FetchTokenTest extends PorterTest
 {
-    public function testFetchToken()
+    public function testFetchToken(): void
     {
         $token = $this->porter->importOne(new ImportSpecification(new FetchToken(FixtureFactory::createToken())));
 

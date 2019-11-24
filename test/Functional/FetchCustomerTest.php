@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSIONTest\Porter\Provider\Stripe\Functional;
 
 use ScriptFUSION\Porter\Provider\Stripe\Customer;
@@ -9,7 +11,7 @@ use ScriptFUSIONTest\Porter\Provider\Stripe\PorterTest;
 
 final class FetchCustomerTest extends PorterTest
 {
-    public function testFetchCustomer()
+    public function testFetchCustomer(): void
     {
         $customer = $this->porter->importOne(
             new ImportSpecification(new FetchCustomer(FixtureFactory::createCustomer()->getId()))

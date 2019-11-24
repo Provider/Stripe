@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 /**
@@ -33,7 +35,7 @@ class StripePaymentException extends \RuntimeException
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -41,7 +43,7 @@ class StripePaymentException extends \RuntimeException
     /**
      * @return string|null
      */
-    public function getParam()
+    public function getParam(): ?string
     {
         return $this->param;
     }
@@ -49,7 +51,7 @@ class StripePaymentException extends \RuntimeException
     /**
      * @return string
      */
-    public function getStripeCode()
+    public function getStripeCode(): string
     {
         return $this->stripeCode;
     }

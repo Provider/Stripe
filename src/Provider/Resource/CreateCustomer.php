@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 use ScriptFUSION\Porter\Provider\Stripe\Card;
@@ -18,24 +20,24 @@ class CreateCustomer extends AbstractStripeResource
         $this->source = $source;
     }
 
-    protected function getHttpMethod()
+    protected function getHttpMethod(): string
     {
         return 'POST';
     }
 
-    protected function getResourcePath()
+    protected function getResourcePath(): string
     {
         return 'customers';
     }
 
-    protected function serialize()
+    protected function serialize(): array
     {
         if ($this->source instanceof Card) {
             return $this->source->serialize();
         }
 
         return [
-            'source' => "$this->source",
+            'source' => (string)$this->source,
         ];
     }
 }

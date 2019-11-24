@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 use ScriptFUSION\Porter\Provider\Stripe\Card;
@@ -24,7 +26,7 @@ class CreateCharge extends AbstractStripeResource
      * @param int $amount
      * @param string $currency
      */
-    public function __construct($sourceOrCustomer, $amount, $currency)
+    public function __construct($sourceOrCustomer, int $amount, string $currency)
     {
         if ($sourceOrCustomer instanceof Customer) {
             $this->setCustomer($sourceOrCustomer);
@@ -36,17 +38,17 @@ class CreateCharge extends AbstractStripeResource
         $this->setCurrency($currency);
     }
 
-    protected function getResourcePath()
+    protected function getResourcePath(): string
     {
         return 'charges';
     }
 
-    protected function getHttpMethod()
+    protected function getHttpMethod(): string
     {
         return 'POST';
     }
 
-    protected function serialize()
+    protected function serialize(): array
     {
         return [
             'amount' => $this->getAmount(),
@@ -58,7 +60,7 @@ class CreateCharge extends AbstractStripeResource
             ($source = $this->getSource())
                 ? ($source instanceof Card)
                     ? $source->serialize()
-                    : ['source' => "$source"]
+                    : ['source' => (string)$source]
                 : []
         );
     }
@@ -74,7 +76,7 @@ class CreateCharge extends AbstractStripeResource
     /**
      * @param Token|Card $source
      */
-    public function setSource($source)
+    public function setSource($source): void
     {
         if (!$source instanceof Token && !$source instanceof Card) {
             throw new \InvalidArgumentException('$source must be instance of Token or Card.');
@@ -83,67 +85,43 @@ class CreateCharge extends AbstractStripeResource
         $this->source = $source;
     }
 
-    /**
-     * @return Customer
-     */
-    public function getCustomer()
+    public function getCustomer(): ?Customer
     {
         return $this->customer;
     }
 
-    /**
-     * @param Customer $customer
-     */
-    public function setCustomer(Customer $customer)
+    public function setCustomer(Customer $customer): void
     {
         $this->customer = $customer;
     }
 
-    /**
-     * @return int
-     */
-    public function getAmount()
+    public function getAmount(): int
     {
         return $this->amount;
     }
 
-    /**
-     * @param int $amount
-     */
-    public function setAmount($amount)
+    public function setAmount(int $amount): void
     {
-        $this->amount = $amount|0;
+        $this->amount = $amount;
     }
 
-    /**
-     * @return string
-     */
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->currency;
     }
 
-    /**
-     * @param string $currency
-     */
-    public function setCurrency($currency)
+    public function setCurrency(string $currency): void
     {
-        $this->currency = "$currency";
+        $this->currency = $currency;
     }
 
-    /**
-     * @return bool
-     */
-    public function getCapture()
+    public function getCapture(): bool
     {
         return $this->capture;
     }
 
-    /**
-     * @param bool $capture
-     */
-    public function setCapture($capture)
+    public function setCapture(bool $capture): void
     {
-        $this->capture = (bool)$capture;
+        $this->capture = $capture;
     }
 }

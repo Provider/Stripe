@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSION\Porter\Provider\Stripe;
 
 use ScriptFUSION\Type\StringType;
@@ -25,7 +27,7 @@ final class Card
         $this->setCvc($cvc);
     }
 
-    public function serialize()
+    public function serialize(): array
     {
         return [
             'card[number]' => $this->getNumber(),
@@ -35,72 +37,48 @@ final class Card
         ];
     }
 
-    public static function isValidIdentifier($id)
+    public static function isValidIdentifier($id): bool
     {
         return StringType::startsWith($id, 'card_');
     }
 
-    /**
-     * @return string
-     */
-    public function getNumber()
+    public function getNumber(): string
     {
         return $this->number;
     }
 
-    /**
-     * @param string $number
-     */
-    private function setNumber($number)
+    private function setNumber(string $number): void
     {
-        $this->number = "$number";
+        $this->number = $number;
     }
 
-    /**
-     * @return string
-     */
-    public function getCvc()
+    public function getCvc(): string
     {
         return $this->cvc;
     }
 
-    /**
-     * @param string $cvc
-     */
-    public function setCvc($cvc)
+    public function setCvc(string $cvc): void
     {
-        $this->cvc = "$cvc";
+        $this->cvc = $cvc;
     }
 
-    /**
-     * @return int
-     */
-    public function getExpiryMonth()
+    public function getExpiryMonth(): int
     {
         return $this->expiryMonth;
     }
 
-    /**
-     * @param int $expiryMonth
-     */
-    private function setExpiryMonth($expiryMonth)
+    private function setExpiryMonth(int $expiryMonth): void
     {
-        $this->expiryMonth = $expiryMonth|0;
+        $this->expiryMonth = $expiryMonth;
     }
 
-    /**
-     * @return int
-     */
-    public function getExpiryYear()
+    public function getExpiryYear(): int
     {
         return $this->expiryYear;
     }
 
-    /**
-     * @param int $expiryYear
-     */
-    private function setExpiryYear($expiryYear)
+    private function setExpiryYear(int $expiryYear): void
     {
-        $this->expiryYear = $expiryYear|0;
+        $this->expiryYear = $expiryYear;
     }
 }

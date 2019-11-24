@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSIONTest\Porter\Provider\Stripe;
 
 use Psr\Container\ContainerInterface;
@@ -19,7 +21,7 @@ final class FixtureFactory
 {
     use StaticClass;
 
-    public static function createPorter()
+    public static function createPorter(): Porter
     {
         return new Porter(
             \Mockery::mock(ContainerInterface::class)
@@ -35,43 +37,43 @@ final class FixtureFactory
         );
     }
 
-    public static function createValidCard()
+    public static function createValidCard(): Card
     {
         return self::createCard('4242424242424242');
     }
 
-    public static function createInvalidCard()
+    public static function createInvalidCard(): Card
     {
         return self::createCard('0');
     }
 
-    public static function createNonChargeableCard()
+    public static function createNonChargeableCard(): Card
     {
         return self::createCard('4000000000000002');
     }
 
-    public static function createToken()
+    public static function createToken(): Token
     {
         return new Token(
             self::createPorter()->importOne(new ImportSpecification(new CreateToken(self::createValidCard())))['id']
         );
     }
 
-    public static function createCustomer()
+    public static function createCustomer(): Customer
     {
         return new Customer(
             self::createPorter()->importOne(new ImportSpecification(new CreateCustomer(self::createValidCard())))['id']
         );
     }
 
-    public static function createCapturedCharge()
+    public static function createCapturedCharge(): Charge
     {
         return Charge::fromArray(self::createPorter()->importOne(new ImportSpecification(
             new CreateCharge(self::createValidCard(), 100, 'GBP')
         )));
     }
 
-    public static function createUncapturedCharge()
+    public static function createUncapturedCharge(): Charge
     {
         $createCharge = new CreateCharge(self::createValidCard(), 100, 'GBP');
         $createCharge->setCapture(false);
@@ -79,7 +81,7 @@ final class FixtureFactory
         return Charge::fromArray(self::createPorter()->importOne(new ImportSpecification($createCharge)));
     }
 
-    private static function createCard($cardNumber)
+    private static function createCard($cardNumber): Card
     {
         return new Card($cardNumber, 12, date('Y') + 1, '123');
     }

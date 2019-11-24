@@ -1,13 +1,12 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 use ScriptFUSION\Porter\Provider\Stripe\Charge;
 
 class CreateRefund extends AbstractStripeResource
 {
-    /**
-     * @var Charge
-     */
     private $charge;
 
     public function __construct(Charge $charge)
@@ -15,20 +14,20 @@ class CreateRefund extends AbstractStripeResource
         $this->charge = $charge;
     }
 
-    protected function getResourcePath()
+    protected function getResourcePath(): string
     {
         return 'refunds';
     }
 
-    protected function getHttpMethod()
+    protected function getHttpMethod(): string
     {
         return 'POST';
     }
 
-    protected function serialize()
+    protected function serialize(): array
     {
         return [
-            'charge' => "$this->charge",
+            'charge' => (string)$this->charge,
         ];
     }
 }

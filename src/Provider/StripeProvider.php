@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider;
 
-use ScriptFUSION\Porter\Net\Http\HttpConnector;
+use ScriptFUSION\Porter\Connector\Connector;
 use ScriptFUSION\Porter\Provider\Provider;
 use ScriptFUSION\Porter\Provider\Stripe\Connector\StripeConnector;
 
@@ -16,20 +18,12 @@ final class StripeProvider implements Provider
         $this->connector = $connector;
     }
 
-    /**
-     * @param string $url
-     *
-     * @return string
-     */
-    public static function buildApiUrl($url)
+    public static function buildApiUrl(string $url): string
     {
         return self::BASE_URL . $url;
     }
 
-    /**
-     * @return HttpConnector
-     */
-    public function getConnector()
+    public function getConnector(): Connector
     {
         return $this->connector;
     }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSIONTest\Porter\Provider\Stripe\Functional;
 
 use ScriptFUSION\Porter\Provider\Stripe\Charge;
@@ -9,7 +11,7 @@ use ScriptFUSIONTest\Porter\Provider\Stripe\PorterTest;
 
 final class CaptureChargeTest extends PorterTest
 {
-    public function testCaptureCharge()
+    public function testCaptureCharge(): void
     {
         $uncapturedCharge = FixtureFactory::createUncapturedCharge();
         self::assertFalse($uncapturedCharge->isCaptured());

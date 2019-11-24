@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSIONTest\Porter\Provider\Stripe\Functional;
 
 use ScriptFUSION\Porter\Provider\Stripe\Provider\Resource\CreateToken;
@@ -10,7 +12,7 @@ use ScriptFUSIONTest\Porter\Provider\Stripe\PorterTest;
 
 final class CreateTokenTest extends PorterTest
 {
-    public function testCreateToken()
+    public function testCreateToken(): void
     {
         $token = $this->porter->importOne(new ImportSpecification(new CreateToken(FixtureFactory::createValidCard())));
 
@@ -21,9 +23,9 @@ final class CreateTokenTest extends PorterTest
     /**
      * Tests that when a token cannot be created it is treated as a permanent failure and not retried.
      */
-    public function testCreateTokenPermanentlyFails()
+    public function testCreateTokenPermanentlyFails(): void
     {
-        $this->setExpectedException(StripePaymentException::class);
+        $this->expectException(StripePaymentException::class);
 
         $this->porter->importOne(new ImportSpecification(new CreateToken(FixtureFactory::createInvalidCard())));
     }

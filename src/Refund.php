@@ -1,13 +1,12 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSION\Porter\Provider\Stripe;
 
 use ScriptFUSION\Type\StringType;
 
 final class Refund
 {
-    /**
-     * @var string
-     */
     private $id;
 
     /**
@@ -20,12 +19,12 @@ final class Refund
      */
     private $status;
 
-    public function __construct($id)
+    public function __construct(string $id)
     {
         $this->setId($id);
     }
 
-    public static function fromArray($refundProperties)
+    public static function fromArray($refundProperties): Refund
     {
         $refund = new self($refundProperties['id']);
         $refund->setAmount($refundProperties['amount']);
@@ -34,59 +33,41 @@ final class Refund
         return $refund;
     }
 
-    public static function isValidIdentifier($id)
+    public static function isValidIdentifier(string $id): bool
     {
         return StringType::startsWith($id, 're_');
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     */
-    private function setId($id)
+    private function setId(string $id): void
     {
         if (!self::isValidIdentifier($id)) {
             throw new InvalidIdentifierException("Invalid refund identifier: \"$id\".");
         }
 
-        $this->id = "$id";
+        $this->id = $id;
     }
 
-    /**
-     * @return int
-     */
-    public function getAmount()
+    public function getAmount(): int
     {
         return $this->amount;
     }
 
-    /**
-     * @param int $amount
-     */
-    private function setAmount($amount)
+    private function setAmount(int $amount): void
     {
-        $this->amount = $amount|0;
+        $this->amount = $amount;
     }
 
-    /**
-     * @return RefundStatus
-     */
-    public function getStatus()
+    public function getStatus(): RefundStatus
     {
         return $this->status;
     }
 
-    /**
-     * @param RefundStatus $status
-     */
-    private function setStatus(RefundStatus $status)
+    private function setStatus(RefundStatus $status): void
     {
         $this->status = $status;
     }
@@ -96,7 +77,7 @@ final class Refund
      *
      * @return bool True if the refund succeeded, otherwise false.
      */
-    public function hasSucceeded()
+    public function hasSucceeded(): bool
     {
         return $this->status === RefundStatus::SUCCEEDED();
     }

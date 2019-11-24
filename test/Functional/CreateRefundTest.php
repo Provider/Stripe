@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSIONTest\Porter\Provider\Stripe\Functional;
 
 use ScriptFUSION\Porter\Provider\Stripe\Provider\Resource\CreateRefund;
@@ -9,7 +11,7 @@ use ScriptFUSIONTest\Porter\Provider\Stripe\PorterTest;
 
 final class CreateRefundTest extends PorterTest
 {
-    public function testRefundCapturedCharge()
+    public function testRefundCapturedCharge(): void
     {
         $refund = Refund::fromArray($this->porter->importOne(new ImportSpecification(
             new CreateRefund($charge = FixtureFactory::createCapturedCharge())
@@ -19,7 +21,7 @@ final class CreateRefundTest extends PorterTest
         self::assertSame($charge->getAmount(), $refund->getAmount());
     }
 
-    public function testRefundUncapturedCharge()
+    public function testRefundUncapturedCharge(): void
     {
         $refund = Refund::fromArray($this->porter->importOne(new ImportSpecification(
             new CreateRefund($charge = FixtureFactory::createUncapturedCharge())

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ScriptFUSION\Porter\Provider\Stripe\Provider\Resource;
 
 use ScriptFUSION\Porter\Provider\Stripe\Card;
@@ -12,17 +14,17 @@ class CreateToken extends AbstractStripeResource
         $this->card = $card;
     }
 
-    protected function getHttpMethod()
+    protected function getHttpMethod(): string
     {
         return 'POST';
     }
 
-    protected function getResourcePath()
+    protected function getResourcePath(): string
     {
         return 'tokens';
     }
 
-    protected function serialize()
+    protected function serialize(): array
     {
         return $this->card->serialize();
     }
