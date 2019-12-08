@@ -10,14 +10,13 @@
     "require": {
         "php": "^7.1",
         "ext-json": "*",
-        "connectors/http": "dev-5.0-rc",
-        "connectors/ssl": "dev-5.0-rc",
+        "connectors/http": "^3",
         "eloquent/enumeration": "^5",
-        "scriptfusion/porter": "dev-master as 5"
+        "scriptfusion/porter": "^5"
     },
     "require-dev": {
-        "mockery/mockery": "^1",
-        "phpunit/phpunit": "^6.5"
+        "mockery/mockery": "^1.3",
+        "phpunit/phpunit": "^7"
     },
     "autoload": {
         "psr-4": {
